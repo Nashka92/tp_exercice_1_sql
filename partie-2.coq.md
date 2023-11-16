@@ -34,7 +34,7 @@ order by QUANTITE desc
 select ID_TYPE, NOM_ARTICLE, VOLUME, TITRAGE
 from article
 inner join `type`
-where NOM_TYPE = 'Trappiste'
+where type.NOM_TYPE = 'Trappiste'
 ```
 
 ## 14 Listez les marques de bières du continent ‘Afrique’
@@ -62,6 +62,11 @@ where continent.NOM_CONTINENT = 'Afrique'
 ## 16. Lister les tickets (année, numéro de ticket, montant total payé). En sachant que le prix de vente est égal au prix d’achat augmenté de 15%.
 
 ```mysql
+SELECT ticket.ANNEE, ticket.NUMERO_TICKET, ticket.DATE_VENTE,
+SUM(ventes.QUANTITE * article.PRIX_ACHAT * 1.15) AS 'Montant_total'
+FROM ticket
+JOIN ventes USING (ANNEE, NUMERO_TICKET)
+JOIN article ON article.ID_ARTICLE= ventes.ID_ARTICLE
 
 ```
 
