@@ -73,17 +73,35 @@ JOIN article ON article.ID_ARTICLE= ventes.ID_ARTICLE
 ## 17  Donner le C.A. par année.
 
 ```mysql
+SELECT ventes.ANNEE, SUM(ventes.QUANTITE * article.PRIX_ACHAT * 1.15) AS 'Chiffre_affaire'
+FROM ventes
+JOIN article ON article.ID_ARTICLE= ventes.ID_ARTICLE
+GROUP BY ventes.ANNEE
+ORDER BY ventes.ANNEE
 ```
 
 ## 18. Lister les quantités vendues de chaque article pour l’année 2016.
 
 ```mysql
+SELECT ventes.ANNEE, article.NOM_ARTICLE, sum(ventes.QUANTITE) as "quantite_vendue"
+FROM ventes
+JOIN article ON article.ID_ARTICLE = ventes.ID_ARTICLE
+WHERE ventes.ANNEE = 2016
+GROUP BY article.NOM_ARTICLE
+ORDER BY ventes.ANNEE
 
 ```
 
 ## 19. Lister les quantités vendues de chaque article pour les années 2014, 2015, 2016.
 
 ```mysql
+SELECT ventes.ANNEE, article.NOM_ARTICLE, 
+sum(ventes.QUANTITE) as "quantite_vendue"
+FROM ventes
+JOIN article ON article.ID_ARTICLE = ventes.ID_ARTICLE
+WHERE ventes.ANNEE BETWEEN 2014 and 2016 and ventes.ANNEE  between 2015 and 2016
+GROUP BY article.NOM_ARTICLE
+ORDER BY ventes.ANNEE
 
 ```
 
